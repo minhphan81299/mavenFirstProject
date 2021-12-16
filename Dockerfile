@@ -1,4 +1,4 @@
-FROM tomcat:jdk8-openjdk
+FROM tomcat:jdk9-openjdk
 # Copy war file to tomcat
 COPY target/travelblog-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/
 
