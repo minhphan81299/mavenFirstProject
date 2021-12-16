@@ -1,6 +1,6 @@
 FROM tomcat:9.0
 # Copy war file to tomcat
-COPY target/* /usr/local/tomcat/webapps/
+COPY target/*.war /usr/local/tomcat/webapps/
 
 # Expose the port
 EXPOSE 8080
