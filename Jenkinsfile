@@ -1,25 +1,29 @@
-pipeline {
-	agent any
-	stages {
-	    stage('mvn build'){
+pipeline{
+    agent any
+    stages {
+       stage('Checkout'){
+            steps{
+                git branch: 'main',credentialsId: 'gitCredential', url: 'https://github.com/minhphan81299/mavenFirstProject.git'
+            }
+            
+        }
+        stage('mvn build'){
 	        steps {
-	            sh 'mvn clean install package'
+	  
+	            bat 'mvn clean install package'
 	        }
 	    }
-	    stage('Docker image build'){
+	    stage('Build docker image'){
 	        steps {
-	            sh 'docker build -t travelblog .'
-	        }
-	    }
-	    stage('Remove running Container'){
-	        steps {
-	            sh './stop-container.sh'
+	            bat 'docker build -t travelblog .'
 	        }
 	    }
 	    stage('Run Docker Container'){
 	        steps{
-	            sh 'docker container run --name tbcontainer -p 8000:8080 -d travelblog'
+	            bat 'stop-container.sh'
+	            bat 'docker container run --name tbcontainer -p 8000:8080 -d travelblog'
 	        }
 	    }
-	}
+
+}
 }
